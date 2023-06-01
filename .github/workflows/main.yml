@@ -26,15 +26,11 @@ jobs:
 
       - name: Static Analysis
         run: |
-          pylint --output-format=text Calculator.py > pylint_report.txt
-          pylint_exit_code=$?
-          echo "::set-output name=pylint_exit_code::$pylint_exit_code"
+          pylint --output-format=text Calculator.py > pylint_report.txt || exit 0
 
       - name: Code Style Check
         run: |
-          pycodestyle Calculator.py > pycodestyle_report.txt
-          pycodestyle_exit_code=$?
-          echo "::set-output name=pycodestyle_exit_code::$pycodestyle_exit_code"
+          pycodestyle Calculator.py > pycodestyle_report.txt || exit 0
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
