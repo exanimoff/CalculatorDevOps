@@ -24,8 +24,23 @@ jobs:
       - name: Build Application
         run: pyinstaller --onefile Calculator.py
 
+      - name: Static Analysis
+        run: |
+          pylint --output-format=text Calculator.py > pylint_report.txt
+          pylint_exit_code=$?
+          echo "::set-output name=pylint_exit_code::$pylint_exit_code"
+
+      - name: Code Style Check
+        run: |
+          pycodestyle Calculator.py > pycodestyle_report.txt
+          pycodestyle_exit_code=$?
+          echo "::set-output name=pycodestyle_exit_code::$pycodestyle_exit_code"
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: calculator-artifact
-          path: dist/
+          path: |
+            dist/
+            pylint_report.txt
+            pycodestyle_report.txt
