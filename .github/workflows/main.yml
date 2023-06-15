@@ -38,7 +38,7 @@ jobs:
 
       - name: Code Style Check
         run: |
-          pycodestyle --exit-zero Calculator.py > pycodestyle_report.txt
+          pycodestyle Calculator.py > pycodestyle_report.txt || (exit 0)
         # Шаг Code Style Check - проверяет стиль кодирования с помощью pycodestyle
         # Результаты проверки сохраняются в файл pycodestyle_report.txt
         # Если есть проблемы, пайплайн продолжит выполнение, поскольку добавлено "; exit 0"
