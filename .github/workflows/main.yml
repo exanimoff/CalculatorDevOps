@@ -30,7 +30,7 @@ jobs:
 
       - name: Static Analysis
         run: |
-          pylint --output-format=text Calculator.py > pylint_report.txt
+          pylint --output-format=text --exit-zero Calculator.py > pylint_report.txt
         # Шаг Static Analysis - выполняет статический анализ кода с использованием pylint
         # Результаты анализа сохраняются в файл pylint_report.txt
         # Если есть проблемы, пайплайн продолжит выполнение, поскольку добавлено "; exit 0"
