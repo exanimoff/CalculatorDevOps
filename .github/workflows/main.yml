@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
@@ -30,14 +30,14 @@ jobs:
 
       - name: Static Analysis
         run: |
-          pylint --output-format=text Calculator.py > pylint_report.txt ; exit 0
+          pylint --output-format=text Calculator.py > pylint_report.txt
         # Шаг Static Analysis - выполняет статический анализ кода с использованием pylint
         # Результаты анализа сохраняются в файл pylint_report.txt
         # Если есть проблемы, пайплайн продолжит выполнение, поскольку добавлено "; exit 0"
 
       - name: Code Style Check
         run: |
-          pycodestyle Calculator.py > pycodestyle_report.txt ; exit 0
+          pycodestyle Calculator.py > pycodestyle_report.txt
         # Шаг Code Style Check - проверяет стиль кодирования с помощью pycodestyle
         # Результаты проверки сохраняются в файл pycodestyle_report.txt
         # Если есть проблемы, пайплайн продолжит выполнение, поскольку добавлено "; exit 0"
