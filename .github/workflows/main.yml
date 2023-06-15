@@ -34,10 +34,11 @@ jobs:
         # Шаг Static Analysis - выполняет статический анализ кода с использованием pylint
         # Результаты анализа сохраняются в файл pylint_report.txt
         # Если есть проблемы, пайплайн продолжит выполнение, поскольку добавлено "; exit 0"
+        # -exit-zero задаёт 0 код выхода
 
       - name: Code Style Check
         run: |
-          pycodestyle Calculator.py > pycodestyle_report.txt
+          pycodestyle --exit-zero Calculator.py > pycodestyle_report.txt
         # Шаг Code Style Check - проверяет стиль кодирования с помощью pycodestyle
         # Результаты проверки сохраняются в файл pycodestyle_report.txt
         # Если есть проблемы, пайплайн продолжит выполнение, поскольку добавлено "; exit 0"
