@@ -12,36 +12,25 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        # Шаг Checkout Repository - получает исходный код репозитория для выполнения сборки
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
-           # Шаг Set up Python - настраивает версию Python для выполнения сборки
 
       - name: Install Dependencies
         run: pip install -r requirements.txt
-        # Шаг Install Dependencies - устанавливает зависимости проекта из файла requirements.txt (версии не указывал)
 
       - name: Build Application
         run: pyinstaller --onefile Calculator.py
-        # Шаг Build Application - создает исполняемый файл приложения с помощью PyInstaller
 
       - name: Static Analysis
         run: |
           pylint --output-format=text --exit-zero Calculator.py > pylint_report.txt
-        # Шаг Static Analysis - выполняет статический анализ кода с использованием pylint
-        # Результаты анализа сохраняются в файл pylint_report.txt
-        # Если есть проблемы, пайплайн продолжит выполнение, поскольку добавлено "; exit 0"
-        # -exit-zero задаёт 0 код выхода
 
       - name: Code Style Check
         run: |
           pycodestyle Calculator.py > pycodestyle_report.txt || (exit 0)
-        # Шаг Code Style Check - проверяет стиль кодирования с помощью pycodestyle
-        # Результаты проверки сохраняются в файл pycodestyle_report.txt
-        # Если есть проблемы, пайплайн продолжит выполнение, поскольку добавлено "; exit 0"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
@@ -51,16 +40,13 @@ jobs:
             dist/
             pylint_report.txt
             pycodestyle_report.txt
-        # Шаг Upload Artifact - загружает артефакты (исполняемый файл и отчеты анализа) в GitHub
 
       - name: Build Docker Image
         run: |
             docker build -t exanimoff/devops .
 
-
       - name: Log in to Docker Hub
         run: docker login -u exanimoff -p ${{ secrets.DOCKERHUB_TOKEN }}
-
 
       - name: Push Docker Image
         run: docker push exanimoff/devops
